@@ -1,2 +1,3 @@
-# markdown-notes
-Notes App with markdown support
+# Markdown Notes
+
+Markdown Supported Note Taking With Categories
