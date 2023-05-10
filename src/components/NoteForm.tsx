@@ -41,6 +41,7 @@ const NoteForm = ({ onSubmit }: NoteFormProps) => {
               id="title"
               placeholder="Title"
               className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-blue-500"
+              required
             />
           </div>
         </div>
@@ -89,6 +90,7 @@ const NoteForm = ({ onSubmit }: NoteFormProps) => {
               name="body"
               id="body"
               className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-blue-500"
+              required
             />
           </div>
         </div>
