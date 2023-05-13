@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useMemo } from "react";
 import "./App.css";
 import NewNote from "./components/NewNote";
+import { v4 as uuidV4 } from "uuid";
 
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
@@ -30,7 +31,7 @@ export type Tag = {
   label: string;
 };
 function App() {
-  const [notes, setNotes] = useLocalStorage<RawNote[]>("notes", []);
+  const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
   const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
 
   const notesWithTags = useMemo(() => {
@@ -42,11 +43,33 @@ function App() {
     });
   }, [notes, tags]);
 
+  function onCreateNote({ tags, ...data }: NoteData) {
+    setNotes((prevNotes) => {
+      return [
+        ...prevNotes,
+        { ...data, id: uuidV4(), tagIds: tags.map((t) => t.id) },
+      ];
+    });
+  }
+
+  function addTag(tag: Tag) {
+    setTags((prev) => [...prev, tag]);
+  }
+
   return (
     <div className="mt-10 mx-10">
       <Routes>
         <Route path="/" element={<h1>Hello</h1>} />
-        <Route path="/new" element={<NewNote />} />
+        <Route
+          path="/new"
+          element={
+            <NewNote
+              onSubmit={onCreateNote}
+              onAddTag={addTag}
+              availableTags={tags}
+            />
+          }
+        />
         <Route path="/:id">
           <Route index element={<h1>Show</h1>} />
           <Route path="edit" element={<h1>Edit</h1>} />

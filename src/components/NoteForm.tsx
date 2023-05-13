@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import { FormEvent, useRef, useState } from "react";
 import { NoteData, Tag } from "../App";
 
+import { v4 as uuidV4 } from "uuid";
+
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
+  onAddTag: (tag: Tag) => void;
+  availableTags: Tag[];
 };
 
-const NoteForm = ({ onSubmit }: NoteFormProps) => {
+const NoteForm = ({ onSubmit, onAddTag, availableTags }: NoteFormProps) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const markdownRef = useRef<HTMLTextAreaElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -54,6 +58,11 @@ const NoteForm = ({ onSubmit }: NoteFormProps) => {
               Tags
             </label>
             <CreatableReactSelect
+              onCreateOption={(label) => {
+                const newTag = { id: uuidV4, label };
+                onAddTag(newTag);
+                setSelectedTags((prev) => [...prev, newTag]);
+              }}
               onChange={(tags) => {
                 setSelectedTags(
                   tags.map((tags) => {
@@ -61,6 +70,9 @@ const NoteForm = ({ onSubmit }: NoteFormProps) => {
                   })
                 );
               }}
+              options={availableTags.map((tag) => {
+                return { label: tag.label, value: tag.id };
+              })}
               value={selectedTags.map((tag) => {
                 return { label: tag.label, value: tag.id };
               })}
