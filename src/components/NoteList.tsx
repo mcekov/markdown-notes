@@ -1,18 +1,40 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Dialog, Popover } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import ReactSelect from "react-select";
-import { Tag } from "../App";
+import { Note, Tag } from "../App";
+import NoteCard from "./NoteCard";
+
+export type SimplifiedNote = {
+  tags: Tag[];
+  title: string;
+  id: string;
+};
 
 type NoteListProps = {
   availableTags: Tag[];
+  notes: SimplifiedNote[];
 };
 
-const NoteList = ({ availableTags }: NoteListProps) => {
+const NoteList = ({ availableTags, notes }: NoteListProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
+
+  const filteredNotes = useMemo(() => {
+    return notes.filter((note) => {
+      return (
+        (title === "" ||
+          note.title.toLocaleLowerCase().includes(title.toLocaleLowerCase())) &&
+        (selectedTags.length === 0 ||
+          selectedTags.every((tag) =>
+            note.tags.some((noteTag) => noteTag.id === tag.id)
+          ))
+      );
+    });
+  }, [title, selectedTags, notes]);
 
   return (
     <>
@@ -141,7 +163,7 @@ const NoteList = ({ availableTags }: NoteListProps) => {
               type="text"
               placeholder="Type here"
               value={title}
-              onChange={(e) => setTimeout(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className="w-full md:w-1/2 px-3">
@@ -181,22 +203,12 @@ const NoteList = ({ availableTags }: NoteListProps) => {
       {/* END FORM */}
 
       {/* CARDS */}
-      <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg">
-        <div className="mt-5">
-          <h2 className="text-gray-800 text-3xl font-semibold">Design Tools</h2>
-          <p className="mt-2 text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-            dolores deserunt ea doloremque natus error, rerum quas odio quaerat
-            nam ex commodi hic, suscipit in a veritatis pariatur minus
-            consequuntur!
-          </p>
-        </div>
-        <div className="flex justify-end mt-4">
-          <a href="#" className="text-xl font-medium text-indigo-500">
-            John Doe
-          </a>
-        </div>
+      <div className="grid grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-3">
+        {filteredNotes.map((note) => (
+          <NoteCard id={note.id} title={note.title} tags={note.tags} />
+        ))}
       </div>
+
       {/* END CARDS */}
     </>
   );
