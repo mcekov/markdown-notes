@@ -60,7 +60,7 @@ function App() {
   return (
     <div className="mt-10 mx-10">
       <Routes>
-        <Route path="/" element={<NoteList />} />
+        <Route path="/" element={<NoteList availableTags={tags} />} />
         <Route
           path="/new"
           element={

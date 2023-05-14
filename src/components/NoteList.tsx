@@ -1,9 +1,18 @@
 import { useState } from "react";
 import { Dialog, Popover } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
+import ReactSelect from "react-select";
+import { Tag } from "../App";
 
-const NoteList = () => {
+type NoteListProps = {
+  availableTags: Tag[];
+};
+
+const NoteList = ({ availableTags }: NoteListProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [title, setTitle] = useState("");
 
   return (
     <>
@@ -51,18 +60,18 @@ const NoteList = () => {
           </Popover.Group>
 
           <Popover.Group>
-            <a
-              href="#_"
+            <Link
+              to="/new"
               className="px-5 py-2.5 font-medium bg-blue-50 hover:bg-blue-100 hover:text-blue-600 text-blue-500 rounded-md text-sm mr-5"
             >
               Create
-            </a>
-            <a
-              href="#_"
+            </Link>
+            <Link
+              to="#"
               className="px-5 py-2.5 font-medium hover:text-blue-600 text-blue-500 rounded-md text-sm border border-gray-200 hover:bg-blue-50"
             >
               Edit Tags
-            </a>
+            </Link>
           </Popover.Group>
         </nav>
 
@@ -114,9 +123,65 @@ const NoteList = () => {
           </Dialog.Panel>
         </Dialog>
       </header>
-
       {/* END HEADER */}
-      <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-20">
+
+      {/* FORM */}
+      <form className="w-full my-[50px]">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="grid-first-name"
+            >
+              Title
+            </label>
+            <input
+              className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="grid-first-name"
+              type="text"
+              placeholder="Type here"
+              value={title}
+              onChange={(e) => setTimeout(e.target.value)}
+            />
+          </div>
+          <div className="w-full md:w-1/2 px-3">
+            <label
+              htmlFor="tags"
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            >
+              Tags
+            </label>
+            <ReactSelect
+              className="border border-gray-200 "
+              inputId="tags"
+              onChange={(tags) => {
+                setSelectedTags(
+                  tags.map((tag) => {
+                    return { label: tag.label, id: tag.value };
+                  })
+                );
+              }}
+              options={availableTags.map((tag) => {
+                return { label: tag.label, value: tag.id };
+              })}
+              value={selectedTags.map((tag) => {
+                return { label: tag.label, value: tag.id };
+              })}
+              isMulti
+              styles={{
+                control: (baseStyles) => ({
+                  ...baseStyles,
+                  minHeight: "2.7rem",
+                }),
+              }}
+            />
+          </div>
+        </div>
+      </form>
+      {/* END FORM */}
+
+      {/* CARDS */}
+      <div className="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg">
         <div className="mt-5">
           <h2 className="text-gray-800 text-3xl font-semibold">Design Tools</h2>
           <p className="mt-2 text-gray-600">
@@ -132,6 +197,7 @@ const NoteList = () => {
           </a>
         </div>
       </div>
+      {/* END CARDS */}
     </>
   );
 };
