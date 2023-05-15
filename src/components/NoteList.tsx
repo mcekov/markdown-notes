@@ -3,7 +3,7 @@ import { Dialog, Popover } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import ReactSelect from "react-select";
-import { Note, Tag } from "../App";
+import { Tag } from "../App";
 import NoteCard from "./NoteCard";
 
 export type SimplifiedNote = {
@@ -84,7 +84,7 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
           <Popover.Group>
             <Link
               to="/new"
-              className="px-5 py-2.5 font-medium bg-blue-50 hover:bg-blue-100 hover:text-blue-600 text-blue-500 rounded-md text-sm mr-5"
+              className="px-5 py-2.5 font-medium bg-blue-50 hover:bg-blue-100 hover:text-blue-600 text-blue-500 rounded-md text-sm mr-3"
             >
               Create
             </Link>
@@ -158,7 +158,7 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
               Title
             </label>
             <input
-              className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight outline-blue-500"
               id="grid-first-name"
               type="text"
               placeholder="Type here"
@@ -174,7 +174,6 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
               Tags
             </label>
             <ReactSelect
-              className="border border-gray-200 "
               inputId="tags"
               onChange={(tags) => {
                 setSelectedTags(
@@ -194,6 +193,7 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
                 control: (baseStyles) => ({
                   ...baseStyles,
                   minHeight: "2.7rem",
+                  borderColor: "#e5e7eb",
                 }),
               }}
             />

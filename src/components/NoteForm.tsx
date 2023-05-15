@@ -39,12 +39,12 @@ const NoteForm = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="-mx-3 flex flex-wrap">
+      <div className="-mx-3 flex flex-wrap mt-10">
         <div className="w-full px-3 sm:w-1/2">
           <div className="mb-5">
             <label
               htmlFor="title"
-              className="mb-3 block text-base font-medium text-[#07074D]"
+              className="mb-3 font-medium block text-base text-[#07074D]"
             >
               Title
             </label>
@@ -55,7 +55,7 @@ const NoteForm = ({
               name="title"
               id="title"
               placeholder="Title"
-              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-blue-500"
+              className="w-full rounded-md border bg-white py-3 px-6 text-base text-[#6B7280] outline-blue-500"
               defaultValue={title}
               required
             />
@@ -94,7 +94,7 @@ const NoteForm = ({
                 control: (baseStyles) => ({
                   ...baseStyles,
                   minHeight: "3.1rem",
-                  height: "3rem",
+                  borderColor: "#e5e7eb",
                 }),
               }}
             />
