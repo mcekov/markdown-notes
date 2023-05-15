@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ReactSelect from "react-select";
 import { Tag } from "../App";
 import NoteCard from "./NoteCard";
+import Modal from "./Modal";
 
 export type SimplifiedNote = {
   tags: Tag[];
@@ -15,10 +16,26 @@ export type SimplifiedNote = {
 type NoteListProps = {
   availableTags: Tag[];
   notes: SimplifiedNote[];
+  onDeleteTag: (id: string) => void;
+  onUpdateTag: (id: string, label: string) => void;
 };
 
-const NoteList = ({ availableTags, notes }: NoteListProps) => {
+type EditTagsModalProps = {
+  show: boolean;
+  availableTags: Tag[];
+  setShowModal: (show: boolean) => void;
+  onDeleteTag: (id: string) => void;
+  onUpdateTag: (id: string, label: string) => void;
+};
+
+const NoteList = ({
+  availableTags,
+  notes,
+  onUpdateTag,
+  onDeleteTag,
+}: NoteListProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
@@ -35,6 +52,25 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
       );
     });
   }, [title, selectedTags, notes]);
+
+  const handleClick = () => {
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
+  const actionBar = (
+    <div>
+      <button onClick={handleClose}>I Accept</button>
+    </div>
+  );
+  const modal = (
+    <Modal onClose={handleClose} actionBar={actionBar}>
+      <p>Here is important agreement for you to accept</p>
+    </Modal>
+  );
 
   return (
     <>
@@ -89,6 +125,7 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
               Create
             </Link>
             <Link
+              onClick={() => setShowModal(true)}
               to="#"
               className="px-5 py-2.5 font-medium hover:text-blue-600 text-blue-500 rounded-md text-sm border border-gray-200 hover:bg-blue-50"
             >
@@ -205,13 +242,94 @@ const NoteList = ({ availableTags, notes }: NoteListProps) => {
       {/* CARDS */}
       <div className="grid grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-3">
         {filteredNotes.map((note) => (
-          <NoteCard id={note.id} title={note.title} tags={note.tags} />
+          <NoteCard
+            key={note.id}
+            id={note.id}
+            title={note.title}
+            tags={note.tags}
+          />
         ))}
       </div>
 
       {/* END CARDS */}
+
+      {/* Edit Modal */}
+
+      {/* <EditTagsModal
+        show={showModal}
+        setShowModal={() => setShowModal(false)}
+        availableTags={availableTags}
+        onUpdateTag={onUpdateTag}
+        onDeleteTag={onDeleteTag}
+      /> */}
+
+      <button onClick={handleClick}>Opne Modal</button>
+      {showModal ? modal : null}
+      <div className="modal-container"></div>
+      {/* END EDIT MODAL */}
     </>
   );
 };
+
+function EditTagsModal(
+  { show, setShowModal }: onDeleteTag,
+  onUpdateTag,
+  EditTagsModalProps
+) {
+  return (
+    <>
+      {show ? (
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 className="text-3xl font-semibold">Edit Tags</h3>
+                  <button
+                    className="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-gray-600 opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      &times;
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Facilis, culpa! Quidem fugiat ea sit? Omnis dicta labore
+                    neque voluptas amet velit voluptatem totam aliquam ea
+                    tempora aliquid, debitis obcaecati. Minus?
+                  </p>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                  <button
+                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
+    </>
+  );
+}
 
 export default NoteList;
