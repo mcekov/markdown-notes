@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.parsedown h1 {
+  @apply mt-8 text-4xl;
+}
+.parsedown h2 {
+  @apply mt-8 text-3xl;
+}
+
+.parsedown h3 {
+  @apply mt-8 text-2xl;
+}
+
+.parsedown h4 {
+  @apply mt-8 text-xl;
+}
+
+.parsedown h5 {
+  @apply mt-8 text-lg;
+}
+
+.parsedown h6 {
+  @apply mt-8 text-sm;
+}

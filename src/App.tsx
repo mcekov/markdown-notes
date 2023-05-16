@@ -50,8 +50,20 @@ function App() {
     setNotes((prevNotes) => {
       return [
         ...prevNotes,
-        { ...data, id: uuidV4(), tagIds: tags.map((t) => t.id) },
+        { ...data, id: uuidV4(), tagIds: tags.map((tag) => tag.id) },
       ];
+    });
+  }
+
+  function onUpdateNote(id: string, { tags, ...data }: NoteData) {
+    setNotes((prevNotes) => {
+      return prevNotes.map((note) => {
+        if (note.id === id) {
+          return { ...note, ...data, tagIds: tags.map((tag) => tag.id) };
+        } else {
+          return note;
+        }
+      });
     });
   }
 
@@ -74,18 +86,6 @@ function App() {
   function deleteTag(id: string) {
     setTags((prevTags) => {
       return prevTags.filter((tag) => tag.id !== id);
-    });
-  }
-
-  function onUpdateNote(id: string, { tags, ...data }: NoteData) {
-    setNotes((prevNotes) => {
-      return prevNotes.map((note) => {
-        if (note.id === id) {
-          return { ...note, ...data, tagIds: tags.map((tag) => tag.id) };
-        } else {
-          return note;
-        }
-      });
     });
   }
 
