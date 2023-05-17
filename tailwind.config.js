@@ -19,5 +19,5 @@ export default {
       }),
     },
   },
-  plugins: [require("@tailwindcss/typography")], //ignore line
+  plugins: [require("@tailwindcss/typography")],
 };
