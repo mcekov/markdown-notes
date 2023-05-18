@@ -251,9 +251,12 @@ const NoteList = ({
 function EditTagsModal({
   show,
   setShowModal,
-  onDeleteTag,
-  onUpdateTag,
-}: EditTagsModalProps) {
+}: /*  onDeleteTag,
+  onUpdateTag, */
+EditTagsModalProps) {
+  /*   onDeleteTag("param");
+  onUpdateTag("id", "label"); */
+
   return (
     <>
       {show ? (
