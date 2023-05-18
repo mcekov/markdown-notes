@@ -58,7 +58,9 @@ const Note = ({ onDelete }: NoteProps) => {
         </div>
       </div>
 
-      <ReactMarkdown className="mt-10 prose">{note.markdown}</ReactMarkdown>
+      <div className="flex container justify-center ">
+        <ReactMarkdown className="my-10 prose">{note.markdown}</ReactMarkdown>
+      </div>
     </>
   );
 };

@@ -52,26 +52,12 @@ const NoteList = ({
     });
   }, [title, selectedTags, notes]);
 
-  const handleClick = () => {
-    setShowModal(true);
-  };
-
-  const handleClose = () => {
-    setShowModal(false);
-  };
-
-  const actionBar = (
-    <div>
-      <button onClick={handleClose}>I Accept</button>
-    </div>
-  );
-
   return (
     <>
       {/* HEADER */}
       <header className="bg-white">
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+          className="flex mx-auto max-w-7xl items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
@@ -179,7 +165,7 @@ const NoteList = ({
       {/* END HEADER */}
 
       {/* FORM */}
-      <form className="w-full my-[50px]">
+      <form className="max-w-7xl mx-auto lg:px-8 my-[50px]">
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
@@ -234,7 +220,7 @@ const NoteList = ({
       {/* END FORM */}
 
       {/* CARDS */}
-      <div className="grid grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-3 max-w-7xl mx-auto lg:px-8">
         {filteredNotes.map((note) => (
           <NoteCard
             key={note.id}
