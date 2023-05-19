@@ -22,13 +22,13 @@ const Note = ({ onDelete }: NoteProps) => {
           <div className="text-5xl mb-5">{note.title}</div>
           {note.tags.length
             ? note.tags.map((tag) => (
-                <span
-                  key={tag.id}
-                  className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 mr-2 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10"
-                >
-                  {tag.label}
-                </span>
-              ))
+              <span
+                key={tag.id}
+                className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 mr-2 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10"
+              >
+                {tag.label}
+              </span>
+            ))
             : null}
         </div>
         <div className="ml-auto">

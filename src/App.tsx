@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useMemo } from "react";
-import "./App.css";
 import { v4 as uuidV4 } from "uuid";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { NoteLayout } from "./components/NoteLayout";
@@ -8,6 +7,8 @@ import NoteList from "./components/NoteList";
 import Note from "./components/Note";
 import NewNote from "./components/NewNote";
 import EditNote from "./components/EditNote";
+
+import "./App.css";
 
 export type Note = {
   id: string;
@@ -96,7 +97,7 @@ function App() {
   }
 
   return (
-    <div className="mt-10 mx-10">
+    <>
       <Routes>
         <Route
           path="/"
@@ -134,7 +135,7 @@ function App() {
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
