@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useNote } from "./NoteLayout";
-import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 
 type NoteProps = {
@@ -11,13 +10,9 @@ const Note = ({ onDelete }: NoteProps) => {
   const navigate = useNavigate();
   const note = useNote();
 
-  useEffect(() => {
-    console.log(note);
-  }, []);
-
   return (
     <>
-      <div className="flex">
+      <div className="flex m-20">
         <div>
           <div className="text-5xl mb-5">{note.title}</div>
           {note.tags.length

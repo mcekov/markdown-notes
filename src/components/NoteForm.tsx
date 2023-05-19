@@ -71,6 +71,7 @@ const NoteForm = ({
             </label>
             <CreatableReactSelect
               inputId="tags"
+              placeholder="Select or create tag..."
               onCreateOption={(label) => {
                 const newTag = { id: uuidV4(), label };
                 onAddTag(newTag);

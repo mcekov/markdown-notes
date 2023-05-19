@@ -12,7 +12,7 @@ const EditNote = ({ onSubmit, onAddTag, availableTags }: EditNoteProps) => {
   const note = useNote();
 
   return (
-    <>
+    <div className="m-20">
       <h1 className="text-xl">Edit Note</h1>
       <NoteForm
         title={note.title}
@@ -22,7 +22,7 @@ const EditNote = ({ onSubmit, onAddTag, availableTags }: EditNoteProps) => {
         onAddTag={onAddTag}
         availableTags={availableTags}
       />
-    </>
+    </div>
   );
 };
 

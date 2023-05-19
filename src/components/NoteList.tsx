@@ -172,13 +172,13 @@ const NoteList = ({
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="search-notes"
             >
-              Title
+              Search
             </label>
             <input
               className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight outline-blue-500"
               id="search-notes"
               type="text"
-              placeholder="Type here"
+              placeholder="Search for note..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
