@@ -50,7 +50,6 @@ const NoteForm = ({
             </label>
             <input
               ref={titleRef}
-              onChange={(e) => console.log(e.target.value)}
               type="text"
               name="title"
               id="title"
@@ -111,7 +110,6 @@ const NoteForm = ({
             </label>
             <textarea
               ref={markdownRef}
-              onChange={(e) => console.log(e.target.value)}
               rows={15}
               name="body"
               id="body"

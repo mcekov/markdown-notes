@@ -52,6 +52,19 @@ const NoteList = ({
     });
   }, [title, selectedTags, notes]);
 
+  const cardsList = filteredNotes.map((note) => {
+    if (filteredNotes.length === 0) {
+      return <h2>No data</h2>;
+    }
+
+    return <NoteCard
+      key={note.id}
+      id={note.id}
+      title={note.title}
+      tags={note.tags}
+    />;
+  });
+
   return (
     <>
       {/* HEADER */}
@@ -76,7 +89,7 @@ const NoteList = ({
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <Popover.Group className="hidden lg:flex lg:gap-x-12 mr-10">
+          {/* <Popover.Group className="hidden lg:flex lg:gap-x-12 mr-10">
             <a
               href="#"
               className="text-sm font-semibold leading-6 text-gray-900"
@@ -95,7 +108,7 @@ const NoteList = ({
             >
               Company
             </a>
-          </Popover.Group>
+          </Popover.Group> */}
 
           <Popover.Group>
             <Link
@@ -221,20 +234,12 @@ const NoteList = ({
 
       {/* CARDS */}
       <div className="grid grid-cols-4 xl:grid-cols-4 md:grid-cols-2 gap-3 max-w-7xl mx-auto lg:px-8">
-        {filteredNotes.map((note) => (
-          <NoteCard
-            key={note.id}
-            id={note.id}
-            title={note.title}
-            tags={note.tags}
-          />
-        ))}
+        {cardsList}
       </div>
 
       {/* END CARDS */}
 
       {/* Edit Modal */}
-
       <EditTagsModal
         show={showModal}
         setShowModal={() => setShowModal(false)}
