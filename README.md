@@ -1,8 +1,6 @@
-markdown: kramdown
-
 # Markdown Notes
 
-Markdown Supported Note Taking With Tags
+Markdown supported note taking with tags
 
 ## Tech
 
