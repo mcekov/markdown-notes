@@ -16,5 +16,10 @@ cd markdown-notes
 npm i
 npm run dev
 ```
+## Live demo
 
-[Demo here](https://notes-app-five-cyan.vercel.app/ "Vercel app")
+Check the live demo here 👉️ [Demo here](https://notes-app-five-cyan.vercel.app/ "Vercel app")
+
+## Usage
+
+This is a Vite project bootstrapped with create vite@latest.
