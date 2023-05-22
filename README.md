@@ -22,4 +22,4 @@ Check the live demo here 👉️ [Demo here](https://notes-app-five-cyan.vercel.
 
 ## Usage
 
-This is a Vite project bootstrapped with create vite@latest.
+This is a [Vite project](https://vitejs.dev/) bootstrapped with create [vite@latest](https://vitejs.dev/guide/).
